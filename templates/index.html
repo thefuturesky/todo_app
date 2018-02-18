@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block main %}
+     <div class="container111">
+        <div class="container222">
+            <form action="{{url_for('add')}}" method="post" class="form123" >
+                <input class="input123" type="text" name="content" placeholder="&nbsp;what things you want to do">
+                <input class="input321" type="submit" value="ADD">
+            </form>
+        </div>
+
+        <div class="container3">
+            <h1>Todo&nbsp;List</h1>
+                {% if todos %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>content</th>
+                            <th>status</th>
+                            <th>time</th>
+                            <th>operate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.content }}</td>
+                            <td>
+                                {% if todo.status==1 %}
+                                    已完成
+                                {% else %}
+                                    未完成
+                                {% endif %}
+                            </td>
+                            <td>{{ todo.create_time }}</td>
+                            <td><a href="{{ url_for('done',todo_id=todo.id) }}" class="btn btn-primary">Done</a></td>
+                            <td><a href="/undone/{{ todo.id }}" class="btn btn-primary">Undone</a></td>
+                            <td><a href="/delete/{{ todo.id }}" class="btn btn-primary">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                {% else %}
+                    <h3 class="text-info">No todos , please add</h3>
+                {% endif %}
+        </div>
+        </div>
+{% endblock %}
